@@ -20,7 +20,7 @@ class CreateRepliesTable extends Migration
             $table->unsignedBigInteger('thred_id');
             $table->foreign('user_id')
                     ->references('id')
-                    ->on('user')
+                    ->on('users')
                     ->onDelete('cascade');
 
             $table->foreign('thred_id')
