@@ -6,16 +6,15 @@ use Illuminate\Http\Request;
 
 class ThreadController extends Controller
 {
-    private $thread;
 
-    public function __construct(Thread $thread)
+    public function __construct()
     {
-        $this->$thread = $thread;
+
     }
 
     public function index()
     {
-        $threads = $this->thread->paginate(15);
+        $threads = Thread::paginate(15);
         return view('thread.index', compact('threads'));
     }
 
@@ -29,7 +28,7 @@ class ThreadController extends Controller
     public function store(Request $request)
     {
         try{
-            $this->thread->create($request->all());
+            Thread::create($request->all());
             dd("tópico criado com sucesso");
         }catch(\Exception $e){
             dd($e->getMessage()); 
@@ -39,7 +38,7 @@ class ThreadController extends Controller
 
     public function show($id)
     {
-        $thread = $this->thread->find($id);
+        Thread::find($id);
         return view('thread.show', compact('thread'));
     }
 
@@ -53,7 +52,7 @@ class ThreadController extends Controller
     public function update(Request $request, $id)
     {
         try{
-            $thread = $this->thread->find($id);
+            $thread = Thread::find($id);
             $thread->update($request->all());
             dd("tópico atualizado com sucesso");
         }catch(\Exception $e){
@@ -65,7 +64,7 @@ class ThreadController extends Controller
     public function destroy($id)
     {
         try{
-            $thread = $this->thread->find($id);
+            $thread = Thread::find($id);
             $thread->delete();
             dd("tópico removido com sucesso");
         }catch(\Exception $e){
