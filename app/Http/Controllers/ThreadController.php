@@ -44,8 +44,9 @@ class ThreadController extends Controller
 
 
     public function edit($id)
-    {
-        
+    {   
+        $thread = Thread::find($id);
+        return view('thread.edit', compact('thread'));
     }
 
 
@@ -54,7 +55,9 @@ class ThreadController extends Controller
         try{
             $thread = Thread::find($id);
             $thread->update($request->all());
-            dd("tópico atualizado com sucesso");
+            return redirect()
+                    ->route('threads.index')
+                    ->with(['message' => 'Atualizado com sucesso!']);
         }catch(\Exception $e){
             dd($e->getMessage()); 
         }
