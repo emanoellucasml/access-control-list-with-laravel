@@ -10,8 +10,8 @@ class Thread extends Model
 {
     use HasFactory, RefreshDatabase;
 
-    
-    protected $fillable = ['title', 'body'];
+
+    protected $fillable = ['title', 'body', 'slug'];
 
     public function replies()
     {

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\Models\Thread;
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Str;
 
 class ThreadController extends Controller
 {
@@ -20,7 +22,7 @@ class ThreadController extends Controller
 
 
     public function create()
-    {
+    {   
         return view('thread.create');
     }
 
@@ -28,8 +30,13 @@ class ThreadController extends Controller
     public function store(Request $request)
     {
         try{
-            Thread::create($request->all());
-            dd("tópico criado com sucesso");
+            $data = array_merge($request->all(),
+                    ['slug' => Str::slug($request->get('title'))]);
+            
+            $user = User::first();
+            $user->threads()->create($data);
+            return redirect()
+                    ->route('threads.index');
         }catch(\Exception $e){
             dd($e->getMessage()); 
         }

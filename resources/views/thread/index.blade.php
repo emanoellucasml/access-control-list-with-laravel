@@ -4,6 +4,7 @@
     <div class="row">
         <div class="col-12">
             <h2>Tópicos</h2>
+            <a href="{{route('threads.create')}}">novo tópico</a>
             <hr>
         </div>
         <div class="col-12">
