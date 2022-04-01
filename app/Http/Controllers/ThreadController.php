@@ -38,7 +38,7 @@ class ThreadController extends Controller
 
     public function show($id)
     {
-        Thread::find($id);
+        $thread = Thread::find($id);
         return view('thread.show', compact('thread'));
     }
 
