@@ -13,7 +13,11 @@
                 <div class="card-footer">
                     <a href="{{route('threads.edit', $thread->id)}}" class="btn btn-sm btn-primary">Editar</a>
                     
-                    <a href="" class="btn btn-sm btn-danger">Remover</a>
+                    <form style="display: inline-block;" action="{{route('threads.destroy', $thread->id)}}" method="POST">
+                        @method('DELETE')
+                        @csrf
+                        <button class="btn btn-sm btn-danger">Remover</button>
+                    </form>
                 </div>
             </div>
             <hr>
