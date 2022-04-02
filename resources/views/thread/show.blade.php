@@ -23,18 +23,20 @@
             <hr>
         </div>
 
-        <div class="col-12">
-            <h3>Respostas</h3>
-            <hr>
-            @forelse($thread->replies as $reply)
-                <div class="card mb-3">
-                    <div class="card-body">{{$reply->reply}}</div>
-                    <div class="card-footer">Criado por {{$reply->user->name}} <span class="font-italic" style="font-style: italic;">{{$reply->created_at->diffForHumans()}}</span></div>
-                </div>
-            @empty
-                sem respostas
-            @endforelse
-        </div>
+        @if($thread->replies->count())
+            <div class="col-12">
+                <h3>Respostas</h3>
+                <hr>
+                @forelse($thread->replies as $reply)
+                    <div class="card mb-3">
+                        <div class="card-body">{{$reply->reply}}</div>
+                        <div class="card-footer">Criado por {{$reply->user->name}} <span class="font-italic" style="font-style: italic;">{{$reply->created_at->diffForHumans()}}</span></div>
+                    </div>
+                @empty
+                    sem respostas
+                @endforelse
+            </div>
+        @endif
 
         <div class="col-12">
             <hr>
