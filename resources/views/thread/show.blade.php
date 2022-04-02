@@ -11,7 +11,7 @@
                     {{$thread->body}}
                 </div>
                 <div class="card-footer">
-                    <a href="{{route('threads.edit', $thread->id)}}" class="btn btn-sm btn-primary">Editar</a>
+                    <a href="{{route('threads.edit', $thread->id)}}" id="btnEditar" class="btn btn-sm btn-primary">Editar</a>
 
                     <form style="display: inline-block;" action="{{route('threads.destroy', $thread->id)}}" method="POST">
                         @method('DELETE')

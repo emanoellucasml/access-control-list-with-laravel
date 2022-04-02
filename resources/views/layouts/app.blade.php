@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link href="{{ asset('css/toastr.css') }}" rel="stylesheet">
+
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -18,6 +20,30 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <style>
+        /* TOASTR BUGFIX */
+        #toast-container > div {
+            opacity: 1;
+        }
+        .toast {
+            font-size: initial !important;
+            border: initial !important;
+            backdrop-filter: blur(0) !important;
+        }
+        .toast-success {
+            background-color: #51A351 !important;
+        }
+        .toast-error {
+            background-color: #BD362F !important;
+        }
+        .toast-info {
+            background-color: #2F96B4 !important;
+        }
+        .toast-warning {
+            background-color: #F89406 !important;
+        }
+    </style>
 </head>
 <body>
     <div id="app">
@@ -81,5 +107,29 @@
             </div>
         </main>
     </div>
+    <script>
+        function showMessages(){
+            @if(Session::has('success'))
+            toastr.success("{{ Session::get('success') }}");
+            @endif
+            @if(Session::has('info'))
+            toastr.info("{{ Session::get('info') }}");
+            @endif
+            @if(Session::has('warning'))
+            toastr.warning("{{ Session::get('warning') }}");
+            @endif
+            @if(Session::has('error'))
+            toastr.error("{{ Session::get('error') }}");
+            @endif
+        };
+        window.onload = () => {
+            @if($errors->any())
+            @foreach ($errors->all() as $error)
+            toastr.error("{{$error}}")
+            @endforeach
+            @endif
+            showMessages();
+        }
+    </script>
 </body>
 </html>
