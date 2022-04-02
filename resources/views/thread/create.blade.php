@@ -12,7 +12,7 @@
                 @method('POST')
                 <div class="form-group">
                     <label for="">Título do tópico</label>
-                    <input class="form-control" type="text" value="{{old('title')}}" name="title">                    
+                    <input class="form-control" type="text" value="{{old('title')}}" name="title">
                 </div>
 
                 <div class="form-group">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Thread;
+use Database\Seeders\DatabaseSeeder;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Str;
@@ -22,7 +23,7 @@ class ThreadController extends Controller
 
 
     public function create()
-    {   
+    {
         return view('thread.create');
     }
 
@@ -32,26 +33,27 @@ class ThreadController extends Controller
         try{
             $data = array_merge($request->all(),
                     ['slug' => Str::slug($request->get('title'))]);
-            
+
             $user = User::first();
             $user->threads()->create($data);
             return redirect()
                     ->route('threads.index');
         }catch(\Exception $e){
-            dd($e->getMessage()); 
+            dd($e->getMessage());
+            dd(DatabaseSeeder::class);
         }
     }
 
 
     public function show($id)
     {
-        $thread = Thread::find($id);
+        $thread = Thread::with(['replies'])->findOrFail($id);
         return view('thread.show', compact('thread'));
     }
 
 
     public function edit($id)
-    {   
+    {
         $thread = Thread::find($id);
         return view('thread.edit', compact('thread'));
     }
@@ -64,9 +66,9 @@ class ThreadController extends Controller
             $thread->update($request->all());
             return redirect()
                     ->route('threads.index')
-                    ->with(['message' => 'Atualizado com sucesso!']);
+                    ->with(['success' => 'Atualizado com sucesso!']);
         }catch(\Exception $e){
-            dd($e->getMessage()); 
+            dd($e->getMessage());
         }
     }
 
@@ -76,9 +78,11 @@ class ThreadController extends Controller
         try{
             $thread = Thread::find($id);
             $thread->delete();
-            dd("tópico removido com sucesso");
+            return redirect()
+                    ->route('threads.index')
+                    ->with(['success' => 'Tópico destrúido com sucesso.']);
         }catch(\Exception $e){
-            dd($e->getMessage()); 
+            dd($e->getMessage());
         }
     }
 }

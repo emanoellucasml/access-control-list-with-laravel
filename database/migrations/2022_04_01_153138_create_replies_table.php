@@ -17,13 +17,13 @@ class CreateRepliesTable extends Migration
             $table->id();
             $table->string('reply');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('thred_id');
+            $table->unsignedBigInteger('thread_id');
             $table->foreign('user_id')
                     ->references('id')
                     ->on('users')
                     ->onDelete('cascade');
 
-            $table->foreign('thred_id')
+            $table->foreign('thread_id')
                     ->references('id')
                     ->on('threads')
                     ->onDelete('cascade');

@@ -18,6 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::post('/reply/new', [\App\Http\Controllers\ReplyController::class, 'store'])->name('reply.store');
 
 Route::resource('threads', ThreadController::class);
 
