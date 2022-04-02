@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Channel;
 use App\Models\Thread;
 use Database\Seeders\DatabaseSeeder;
 use Illuminate\Http\Request;
@@ -15,32 +16,41 @@ class ThreadController extends Controller
 
     }
 
-    public function index()
+    public function index(Request  $request)
     {
-        $threads = Thread::paginate(15);
-        return view('thread.index', compact('threads'));
+        $channel = $request->get('channel');
+        $threads = Thread::orderBy('created_at', 'DESC')->paginate(15);
+        if($channel){
+            $threads = Thread::whereHas('channel', function($query) use($channel){
+               return $query->where('id', $channel);
+            });
+            $threads = $threads->orderBy('created_at', 'DESC')->paginate(15);
+        }
+        return view('thread.index', compact('threads',));
     }
 
 
     public function create()
     {
-        return view('thread.create');
+        $channels = Channel::all();
+        return view('thread.create', compact('channels'));
     }
 
 
     public function store(Request $request)
     {
         try{
+
             $data = array_merge($request->all(),
                     ['slug' => Str::slug($request->get('title'))]);
 
             $user = User::first();
             $user->threads()->create($data);
             return redirect()
-                    ->route('threads.index');
+                    ->route('threads.index')
+                    ->with(['success' => 'Tópico criado com sucesso!']);
         }catch(\Exception $e){
             dd($e->getMessage());
-            dd(DatabaseSeeder::class);
         }
     }
 

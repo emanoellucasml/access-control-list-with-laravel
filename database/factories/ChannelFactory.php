@@ -17,7 +17,7 @@ class ChannelFactory extends Factory
      */
     public function definition()
     {
-        $name = $this->faker->sentence();
+        $name = $this->faker->word;
         return [
             'name' => $name,
             'description' => $this->faker->sentence(),

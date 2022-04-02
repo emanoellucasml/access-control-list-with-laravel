@@ -11,7 +11,7 @@ class Thread extends Model
     use HasFactory, RefreshDatabase;
 
 
-    protected $fillable = ['title', 'body', 'slug'];
+    protected $fillable = ['title', 'body', 'slug', 'channel_id'];
 
     public function replies()
     {

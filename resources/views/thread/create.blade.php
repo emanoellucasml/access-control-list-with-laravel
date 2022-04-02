@@ -11,6 +11,17 @@
                 @csrf
                 @method('POST')
                 <div class="form-group">
+                    <label for=""></label>
+                    <select name="channel_id" id="" class="form-control">
+                        <option value="">Selecione o canal</option>
+                        @forelse($channels as $channel)
+                            <option value="{{$channel->id}}">{{$channel->name}}</option>
+                        @empty
+                            <option value="">Sem canais</option>
+                        @endforelse
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="">Título do tópico</label>
                     <input class="form-control" type="text" value="{{old('title')}}" name="title">
                 </div>
