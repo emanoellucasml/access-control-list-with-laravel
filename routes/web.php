@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('threads.index');
 });
 
 Route::post('/reply/new', [\App\Http\Controllers\ReplyController::class, 'store'])->name('reply.store');

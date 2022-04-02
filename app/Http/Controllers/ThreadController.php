@@ -80,7 +80,7 @@ class ThreadController extends Controller
             $thread->delete();
             return redirect()
                     ->route('threads.index')
-                    ->with(['success' => 'Tópico destrúido com sucesso.']);
+                    ->with(['success' => 'Tópico removido com sucesso.']);
         }catch(\Exception $e){
             dd($e->getMessage());
         }
