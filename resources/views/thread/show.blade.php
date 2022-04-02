@@ -27,7 +27,10 @@
             <h3>Respostas</h3>
             <hr>
             @forelse($thread->replies as $reply)
-                <strong>{{$reply->reply}}</strong>
+                <div class="card mb-3">
+                    <div class="card-body">{{$reply->reply}}</div>
+                    <div class="card-footer">Criado por {{$reply->user->name}} <span class="font-italic" style="font-style: italic;">{{$reply->created_at->diffForHumans()}}</span></div>
+                </div>
             @empty
                 sem respostas
             @endforelse
