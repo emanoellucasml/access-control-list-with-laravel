@@ -7,6 +7,7 @@ use Database\Seeders\DatabaseSeeder;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Str;
+use App\Http\Requests\ThreadRequest;
 
 class ThreadController extends Controller
 {
@@ -37,7 +38,7 @@ class ThreadController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(ThreadRequest $request)
     {
         try{
 
@@ -69,7 +70,7 @@ class ThreadController extends Controller
     }
 
 
-    public function update(Request $request, $id)
+    public function update(ThreadRequest $request, $id)
     {
         try{
             $thread = Thread::find($id);
