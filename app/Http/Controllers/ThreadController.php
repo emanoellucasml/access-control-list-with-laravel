@@ -19,6 +19,7 @@ class ThreadController extends Controller
 
     public function index(Request  $request)
     {
+        $this->authorize('threads/index');
         $channel = $request->get('channel');
         $threads = Thread::orderBy('created_at', 'DESC')->paginate(15);
         if($channel){
