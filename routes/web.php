@@ -20,7 +20,10 @@ Route::get('/', function () {
 
 Route::post('/reply/new', [\App\Http\Controllers\ReplyController::class, 'store'])->name('reply.store');
 
-Route::resource('threads', ThreadController::class);
+Route::group(['middleware' => 'access.control.list'], function(){
+    Route::resource('threads', ThreadController::class);
+});
+
 
 Auth::routes();
 
