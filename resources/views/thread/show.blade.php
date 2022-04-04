@@ -38,6 +38,7 @@
             </div>
         @endif
 
+        @auth
         <div class="col-12">
             <hr>
             <form action="{{route('reply.store')}}" method="POST">
@@ -52,5 +53,6 @@
                 <button type="submit" class="btn btn-success">responder</button>
             </form>
         </div>
+        @endauth
     </div>
 @endsection
